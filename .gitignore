@@ -1,0 +1,13 @@
+/code/vendor/
+/code/var/
+/code/composer.lock
+/code/propel.yml
+/code/generated.conf
+/code/public/images/
+/code/public/js/bootstrap.bundle.js
+/code/public/js/bootstrap.js
+/code/public/css/bootstrap.grid.css
+/code/public/css/bootstrap.css
+/code/public/css/bootstrap-reboot.css
+/code/public/css/*
+.idea
