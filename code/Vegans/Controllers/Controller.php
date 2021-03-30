@@ -1,21 +1,16 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: franco
- * Date: 25/03/2021
- * Time: 19:58
+ *
+ * @author Francesco Borriello <infoborriello@gmail.com>
+ * @company Vegan Solution
+ * @package Vegans
+ *
  */
-
-namespace Vegans;
+namespace Vegans\Controllers;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use DevCoder\DotEnv;
 
-/**
- * Class Controller
- * @package Vegans
- */
 abstract class Controller{
 
     /**
@@ -42,10 +37,8 @@ abstract class Controller{
      * Controller constructor.
      */
     public function __construct(){
-        $loader = new FilesystemLoader(__DIR__ . '/templates');
+        $loader = new FilesystemLoader(__DIR__ . '/../templates');
         $this->_twig = new Environment($loader);
-
-        (new DotEnv(__DIR__ . '/.env'))->load();
         $this->_globalVars[self::BASE_URL] = getenv(self::BASE_URL);
     }
 

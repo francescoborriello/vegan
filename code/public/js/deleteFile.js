@@ -15,10 +15,10 @@ $(document).ready(function () {
                 $("html").animate({ scrollTop: 0 }, "slow");
                 $('#success-message').html('<div id="error-ico" class="fa">&#xf118</div>Image have been removed!');
             },
-            error: function (richiesta, stato, errori) {
+            error: function (xhr, stato, errori) {
                 $("html").animate({ scrollTop: 0 }, "slow");
                 $('#error-message').show();
-                $('#error-message').html('<div id="error-ico" class="fa">&#xf119</div>Error!!!');
+                $('#error-message').html('<div id="error-ico" class="fa">&#xf119</div>Error!!!' + xhr.responseText);
             }
         });
 

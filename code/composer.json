@@ -4,7 +4,9 @@
   "type": "project",
   "license": "MIT",
   "keywords": [
-    "Vegans", "images" ,"upload"
+    "Vegans",
+    "images",
+    "upload"
   ],
   "require": {
     "php": "^7.3",
@@ -13,16 +15,14 @@
     "guzzlehttp/guzzle": "^7.2",
     "propel/propel": "~2.0@dev",
     "twig/twig": "^2.0",
-    "twbs/bootstrap": "4.6.*"
+    "twbs/bootstrap": "4.6.*",
+    "symfony/dotenv": "5.2.*"
   },
   "autoload": {
     "psr-4": {
-      "Vg\\": "orm/tables/Vg",
-      "Vegans\\": "Vegans",
-      "Images\\": "Vegans/Images",
-      "VegansHome\\": "Vegans/Home",
-      "VegansException\\": "Vegans/Exception",
-      "DevCoder\\": "Vegans/DevCoder"
+      "Vg\\": "orm/tables/Vg/",
+      "Vegans\\": "Vegans/",
+      "VegansException\\": "Vegans/Exception/"
     }
   },
   "scripts": {

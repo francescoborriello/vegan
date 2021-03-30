@@ -4,19 +4,16 @@
  *
  * @author Francesco Borriello <infoborriello@gmail.com>
  * @company Vegan Solution
- * @package Vegans\DeleteImages
+ * @package Vegans
  *
  */
-namespace Images;
+
+namespace Vegans\Controllers\Images;
 
 use Vg\ImagesQuery;
 use VegansException\Error;
-use Vegans\Controller;
+use Vegans\Controllers\Controller;
 
-/**
- * Class DeleteImage
- * @package Images
- */
 class DeleteImage extends Controller{
 
     /**
@@ -30,7 +27,7 @@ class DeleteImage extends Controller{
     public function execute(...$params){
 
         if(!isset($params)){
-            new Error('ERROR in path: ID is mandatory');
+            throw new Error('ERROR in path: ID is mandatory');
         }
 
         $id = reset($params);
@@ -38,7 +35,7 @@ class DeleteImage extends Controller{
         if(strlen($path) > 0){
             $this->_removeStoredImage($path);
         }else{
-            new Error('ERROR: image path not valid!');
+            throw new Error('ERROR: image path not valid!');
         }
     }
 
@@ -62,11 +59,15 @@ class DeleteImage extends Controller{
         $image = ImagesQuery::create();
 
         try{
-            $elem = $image->findById($id);
-            $path = $elem->getFirst()->getPath();
-            $image->delete();
+            $elem = $image->findOneById($id);
+            if(is_null($elem)){
+
+                throw new Error('ERROR: element not found in DB');
+            }
+            $path = $elem->getPath();
+            $elem->delete();
         }catch(\PropelException $e){
-            new Error('ERROR: ' . $e->getMessage());
+            throw new Error('ERROR: ' . $e->getMessage());
         }
 
         return $path;
@@ -81,8 +82,8 @@ class DeleteImage extends Controller{
      * @param $path
      */
     private function _removeStoredImage($path){
-        if(!unlink(\Images\Consts::PUBPATH . $path)){
-            new Error('ERROR during delete file');
+        if(!unlink(\Vegans\Controllers\Images\Consts::PUBPATH . $path)){
+            throw new Error('ERROR during delete file');
         }
     }
 

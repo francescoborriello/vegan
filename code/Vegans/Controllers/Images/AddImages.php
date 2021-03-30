@@ -4,18 +4,20 @@
  *
  * @author Francesco Borriello <infoborriello@gmail.com>
  * @company Vegan Solution
- * @package Vegans\AddImages
+ * @package Vegans
  *
  */
-namespace Images;
+namespace Vegans\Controllers\Images;
 
-use Vegans\Controller;
+use Propel\Runtime\Exception\PropelException;
+use Vegans\Controllers\Controller;
 use Vg\Images;
 use VegansException\Error;
 
 class AddImages extends Controller{
 
     /**
+     *
      * execute
      *
      * This is the execute of add images which takes care of creating a directory for storing
@@ -25,8 +27,8 @@ class AddImages extends Controller{
      */
     public function execute(){
 
-        if(!(in_array($_FILES['file']['type'], \Images\Consts::FILETYPES))){
-            new Error('ERROR during passing parameters');
+        if(!(in_array($_FILES['file']['type'], \Vegans\Controllers\Images\Consts::FILETYPES))){
+            throw new Error('ERROR during passing parameters');
         }
 
         $time = strtotime("now");
@@ -35,7 +37,7 @@ class AddImages extends Controller{
         if(strlen($fileName) > 0){
             $vars = [
                 'filename' => $fileName,
-                'path' => \Images\Consts::IMAGEPATH . $fileName,
+                'path' => \Vegans\Controllers\Images\Consts::IMAGEPATH . $fileName,
                 'created_at' => $time
             ];
 
@@ -68,8 +70,8 @@ class AddImages extends Controller{
                 ->save();
             return $images->getId();
 
-        }catch(Error $e){
-            new Error('ERROR: '. $e->getMessage());
+        }catch(\PropelException $e){
+            throw new Error('ERROR: '. $e->getMessage());
         }
     }
 
@@ -87,15 +89,15 @@ class AddImages extends Controller{
      */
     private function _storeImages($file, $time){
 
-        if(!file_exists(\Images\Consts::IMAGEPATH)){
-            mkdir(\Images\Consts::IMAGEPATH, 0755);
+        if(!file_exists(\Vegans\Controllers\Images\Consts::IMAGEPATH)){
+            mkdir(\Vegans\Controllers\Images\Consts::IMAGEPATH, 0755);
         }
 
         $fileName = $time . '_' . $file['file']['name'];
-        if(move_uploaded_file($file['file']['tmp_name'], \Images\Consts::IMAGEPATH . $fileName)){
+        if(move_uploaded_file($file['file']['tmp_name'], \Vegans\Controllers\Images\Consts::IMAGEPATH . $fileName)){
             return $fileName;
         }else{
-            new Error('ERROR during store file');
+            throw new Error('ERROR during store file');
         }
 
     }

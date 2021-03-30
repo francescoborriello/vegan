@@ -3,16 +3,12 @@
  *
  * @author Francesco Borriello <infoborriello@gmail.com>
  * @company Vegan Solution
- * @package Vegans\Consts
+ * @package Vegans
  *
  */
-namespace Images;
+namespace Vegans\Controllers\Images;
 
 
-/**
- * Class Consts
- * @package Images
- */
 class Consts{
 
     /**

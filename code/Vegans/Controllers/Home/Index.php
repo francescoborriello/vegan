@@ -4,18 +4,14 @@
  *
  * @author Francesco Borriello <infoborriello@gmail.com>
  * @company Vegan Solution
- * @package Vegans\Home
+ * @package Vegans
  *
  */
-namespace VegansHome;
+namespace Vegans\Controllers\Home;
 
-use Vegans\Controller;
+use Vegans\Controllers\Controller;
 use Vg\Base\ImagesQuery;
 
-/**
- * Class Index
- * @package VegansHome
- */
 class Index extends Controller{
 
     /**
@@ -47,7 +43,7 @@ class Index extends Controller{
 
         if($images->count() > 0){
             foreach($images as $image){
-                $vars[\Images\Consts::IMAGES][] = [
+                $vars[\Vegans\Controllers\Images\Consts::IMAGES][] = [
                     'id' => $image->getId(),
                     'path' => $image->getPath(),
                     'created_at' => date('d-m-Y, h:i:s', $image->getCreatedAt())

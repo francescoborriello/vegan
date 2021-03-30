@@ -4,26 +4,23 @@
  *
  * @author Francesco Borriello <infoborriello@gmail.com>
  * @company Vegan Solution
- * @package Vegans\Exception
+ * @package Vegans
  *
  */
 namespace VegansException;
+use Throwable;
 
-/**
- * Class Error
- * @package VegansException
- *
- */
-class Error{
+class Error extends \Exception {
 
     /**
      * Error constructor.
-     * @param $message
-     * @throws \Exception
+     * @param string $message
+     * @param int $code
+     * @param Throwable|null $previous
      */
-    public function __construct($message) {
+    public function __construct(string $message = "", int $code = 0, Throwable $previous = null){
         @set_exception_handler(array($this, 'exception_handler'));
-        throw new \Exception('DOH!!! ' . $message);
+        parent::__construct($message, $code, $previous);
     }
 
     /**
@@ -31,7 +28,8 @@ class Error{
      * @param $exception
      */
     public function exception_handler($exception) {
-        print "Exception Caught: ". $exception->getMessage() ."\n";
+        header("HTTP/1.0 500 Internal Server Error");
+        print "| Exception Caught: ". $exception->getMessage() ."\n";
     }
 }
 
